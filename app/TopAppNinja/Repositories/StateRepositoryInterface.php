@@ -3,5 +3,5 @@ namespace TopAppNinja\Repositories;
 
 interface StateRepositoryInterface{
 
-	public function getAllStates();
+	public function getAllStatesByCountryID($pCountryID);
 }

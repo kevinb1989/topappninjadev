@@ -3,5 +3,5 @@ namespace TopAppNinja\Repositories;
 
 interface CityRepositoryInterface{
 
-	public function getAllCities();
+	public function getAllCitiesByCountryID();
 }
