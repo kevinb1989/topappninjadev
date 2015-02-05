@@ -7,4 +7,6 @@ class Specialization extends Model{
 	protected $table = 'specializations';
 
 	protected $fillable = array('SpecializationName');
+
+	protected $primaryKey = 'ID';
 }

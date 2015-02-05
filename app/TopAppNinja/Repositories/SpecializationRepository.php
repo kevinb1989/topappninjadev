@@ -4,7 +4,7 @@ use TopAppNinja\Entities\Specialization;
 
 class SpecializationRepository implements SpecializationRepositoryInterface{
 
-	public function getAllSpecialization(){
+	public function getAllSpecializations(){
 		return Specialization::all();
 	}
 

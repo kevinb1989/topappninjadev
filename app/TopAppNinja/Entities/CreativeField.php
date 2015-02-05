@@ -6,5 +6,7 @@ class CreativeField extends Model{
 	
 	protected $table = 'creativefields';
 
+	protected $primaryKey = 'ID';
+
 	protected $fillable = array('CreativeFieldName');
 }
