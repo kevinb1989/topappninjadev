@@ -8,8 +8,8 @@ interface ProfessionalRepositoryInterface{
 	public function deleteAccount();
 	public function getProfessionalByID($pID);
 	public function searchProfessionals($pCriteria);
-	//public function createProfessional($pInfoArray);
-	//public function updateProfessional($pInfoArray);
+	public function register($pInfoArray);
+	public function updateProfessional($pInfoArray);
 	//public function longin($username, $password);
 	//public function logout();
 	
