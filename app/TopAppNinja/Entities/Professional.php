@@ -1,8 +1,13 @@
+
 <?php
 namespace TopAppNinja\Entities;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Cashier\BillableInterface;
+use Laravel\Cashier\BillableTrait;
 
-class Professional extends Model {
+class Professional extends Model implements BillableInterface{
+
+	use BillableTrait;
 
 	protected $table = 'professionals';
 
@@ -15,6 +20,8 @@ class Professional extends Model {
 		);
 
 	protected $guarded = array('ID', 'Password', 'remember_token');
+
+	protected $dates = ['trials_end_at', 'subscription_ends_at'];
 
 	public function city(){
 		return $this -> hasOne('City');
