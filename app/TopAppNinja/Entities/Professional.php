@@ -1,13 +1,13 @@
-
 <?php
 namespace TopAppNinja\Entities;
+
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Cashier\BillableInterface;
 use Laravel\Cashier\BillableTrait;
 
-class Professional extends Model implements BillableInterface{
+class Professional extends Model{
 
-	use BillableTrait;
+	//use BillableTrait;
 
 	protected $table = 'professionals';
 
@@ -24,11 +24,11 @@ class Professional extends Model implements BillableInterface{
 	protected $dates = ['trials_end_at', 'subscription_ends_at'];
 
 	public function city(){
-		return $this -> hasOne('City');
+		return $this -> belongsTo('TopAppNinja\Entities\City', 'CityID');
 	}
 
 	public function messages(){
-		return $this -> hasMany('Message');
+		return $this -> hasMany('TopAppNinja\Entities\Message');
 	}
 
 	public function mainClients(){

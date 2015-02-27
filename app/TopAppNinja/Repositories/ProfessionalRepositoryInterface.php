@@ -3,9 +3,9 @@ namespace TopAppNinja\Repositories;
 
 interface ProfessionalRepositoryInterface{
 
-	//public function changePassword($pOldPassword, $pNewPassword);
-	public function changeEmail($pOldEmail, $pNewEmail);
-	public function deleteAccount();
+	public function getAllProfessionals();
+	public function changeEmail($pProfessionalID, $pOldEmail, $pNewEmail);
+	public function deleteAccount($pProfessionalID);
 	public function getProfessionalByID($pID);
 	public function searchProfessionals($pCriteria);
 	public function register($pInfoArray);

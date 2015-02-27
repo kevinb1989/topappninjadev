@@ -11,7 +11,12 @@
 |
 */
 
+
 Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::get('home', 'HomeController@showHomePage');
+
+Route::post('search-professionals', 'SearchController@search');

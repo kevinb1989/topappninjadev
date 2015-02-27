@@ -4,8 +4,16 @@ use TopAppNinja\Entities\Professional;
 
 class ProfessionalRepository implements ProfessionalRepositoryInterface{
 
+	public function __construct(Professional $professional){
+		$this -> professional = $professional;
+	}
+
+	public function getAllProfessionals(){
+		return $this -> professional -> paginate(5);
+	}
+
 	public function changeEmail($pProfessionalID, $pOldEmail, $pNewEmail){
-		$professional = Professional::find($pProfessionalID);
+		$professional = $this -> professional -> find($pProfessionalID);
 
 		if(strcmp($professional -> Email, $pOldEmail) == 0){
 			$professional -> Email = $pNewEmail;
@@ -17,16 +25,16 @@ class ProfessionalRepository implements ProfessionalRepositoryInterface{
 	}
 
 	public function deleteAccount($pProfessionalID){
-		Professional::destroy($pProfessionalID);
+		return $this -> professional -> destroy($pProfessionalID);
 	}
 
 	public function getProfessionalByID($pProfessionalID){
-		return Professional::find($pProfessionalID);
+		return $this -> professional -> find($pProfessionalID);
 	}
 
 	public function searchProfessionals($pCritera){
 
-		return Professional::join('pros_specs', 'professionals.ID', '=', 'pros_specs.professionalID')
+		return $this -> professional -> join('pros_specs', 'professionals.ID', '=', 'pros_specs.professionalID')
 			-> join('specializations', 'specializations.ID', '=', 'pros_specs.specializationID')
 			-> join('pros_clientfocuses', 'professionals.ID', '=', 'pros_clientfocuses.professionalID')
 			-> join('clientfocuses', 'clientfocuses.ID', '=', 'pros_clientfocuses.clientfocusID')
@@ -42,18 +50,14 @@ class ProfessionalRepository implements ProfessionalRepositoryInterface{
 			-> whereIn('Cities.ID', $pCritera['pCities']);
 	}
 
-	public function register($pInfoArray){
+	public function register($pInfoArr){
 
-		$newProfessional = Professional::create();
-		$newProfessional -> FirstName = $pInfoArray['pFirstName'];
-		$newProfessional -> LastName = $pInfoArray['pLastName'];
-		$newProfessional -> Email = $pInfoArray['pEmail'];
-		$newProfessional -> Password = Hash::make($pInfoArray['pFirstName']);
-		$newProfessional -> save();
+		return $this -> professional -> create($pInfoArr);
+		
 	}
 
 	public function updateProfessional($pInfoArray){
-		$professional = Professional::find($pInfoArray['pID']);
+		$professional = $this -> professional -> find($pInfoArray['pID']);
 
 		//update details
 		$professional -> FirstName = $pInfoArray['pFirstName'];

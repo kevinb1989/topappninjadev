@@ -2,10 +2,14 @@
 namespace TopAppNinja\Repositories;
 use TopAppNinja\Entities\Platform;
 
-class PlatformRepository implments PlatformRepositoryInterface{
+class PlatformRepository implements PlatformRepositoryInterface{
+
+	public function __construct(Platform $platform){
+		$this -> platform = $platform;
+	}
 	
 	public function getAllPlatforms(){
-		return Platform::all();
+		return $this -> platform -> lists('PlatformName', 'ID');
 	}
 	
 }

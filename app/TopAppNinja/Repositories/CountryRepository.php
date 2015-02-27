@@ -5,7 +5,7 @@ use TopAppNinja\Entities\Country;
 class CountryRepository implements CountryRepositoryInterface{
 
 	public function getAllCountries(){
-		return Country::all();
+		return Country::lists('CountryName', 'ID');
 	}
 
 }

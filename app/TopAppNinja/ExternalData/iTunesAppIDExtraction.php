@@ -15,6 +15,8 @@ class iTunesAppIDExtraction implements AppIDExtractionInterface {
 		//finally extract the itunes app id from the link
 		$appID = substr($url, $idIndex + 2, $appIDLength);
 
+		return $appID;
+
 	}
 
 }

@@ -24,7 +24,7 @@ return array(
 	),
 
 	'stripe' => array(
-		'model'  => 'User',
+		'model'  => 'TopAppNinja\Entities\Professional',
 		'secret' => 'sk_test_lEkhqwf5n4Fp4RiiMSbBOTVk',
 	),
 
