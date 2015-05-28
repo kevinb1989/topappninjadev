@@ -58,4 +58,42 @@ class Professional extends Model{
 	public function portfolios(){
 		return $this -> hasMany('Portfolio');
 	}
+
+	public function scopeQueryJoiningTables($pQuery){
+		return $pQuery -> join('pros_specs', 'professionals.ID', '=', 'pros_specs.professionalID')
+			 -> join('specializations', 'specializations.ID', '=', 'pros_specs.specializationID')
+			-> join('pros_creativefields', 'professionals.ID', '=', 'pros_creativefields.ProfessionalID')
+			-> join('creativefields', 'pros_creativefields.CreativeFieldID', '=', 'creativefields.ID')
+			-> join('pros_platforms', 'professionals.ID', '=', 'pros_platforms.ProfessionalID')
+			-> join('platforms', 'platforms.ID', '=', 'pros_platforms.PlatformID')
+			-> join('cities', 'professionals.CityID', '=', 'Cities.ID');
+	}	
+
+	public function scopeQueryCompanyName($pQuery, $pName){
+		return $pQuery -> where('CompanyName', 'LIKE', '%' . $pName .'%');
+	}
+
+	public function scopeQuerySpecializations($pQuery, $pSpecializationsArr){
+		return $pQuery -> whereIn('specializations.ID', $pSpecializationsArr);
+	}
+
+	public function scopeQueryCreativeFields($pQuery, $pCreativeFieldsArr){
+		return $pQuery -> whereIn('creativefields.ID', $pCreativeFieldsArr);
+	}
+
+	public function scopeQueryPlatforms($pQuery, $pPlatformsArr){
+		return $pQuery -> whereIn('platforms.ID', $pPlatformsArr);
+	}
+
+	public function scopeQueryCities($pQuery, $pCitiesArr){
+		return $pQuery -> whereIn('cities.ID', $pCitiesArr);
+	}
+
+	public function scopeQueryPriceRangeBottom($pQuery, $pPriceRangeBottom){
+		return $pQuery -> orWhere('professionals.PriceRangeBottom', '>=', $pPriceRangeBottom);
+	}
+
+	public function scopeQueryPriceRangeTop($pQuery, $pPriceRangeTop){
+		return $pQuery -> orWhere('professionals.PriceRangeTop', '<=', $pPriceRangeTop);
+	}
 }

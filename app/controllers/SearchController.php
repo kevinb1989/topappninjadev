@@ -1,5 +1,6 @@
 <?php
 use TopAppNinja\Repositories\ProfessionalRepositoryInterface;
+use TopAppNinja\Repositories\TagsGeneratorInterface;
 
 class SearchController extends \BaseController {
 	/**
@@ -7,8 +8,10 @@ class SearchController extends \BaseController {
 	 *
 	 * @return void
 	 */
-	public function __construct(ProfessionalRepositoryInterface $professionalRepo){
+	public function __construct(ProfessionalRepositoryInterface $professionalRepo,
+		TagsGeneratorInterface $generator){
 		$this -> professionalRepo = $professionalRepo;
+		$this -> generator = $generator;
 	}
 
 
@@ -19,8 +22,25 @@ class SearchController extends \BaseController {
 	 */
 	public function search()
 	{
-		//retrieve search criteria
-		return dd(Input::all());
+		//initialize the array of criteria
+		$pCriteria = array();
+
+		$pCriteria = array(
+				'pCompanyName' => Request::input('name'),
+				'pSpecializations' => Request::input('specializations'),
+				'pCountry' => Request::input('countries'),
+				'pCities' => Request::input('cities'),
+				'pPriceRangeBottom' => Request::input('frm_price_range_bottom'),
+				'pPriceRangeTop' => Request::input('frm_price_range_top'),
+				'pCreativeFields' => Request::input('creative_fields'),
+				'pPlatforms' => Request::input('platforms')
+			);
+
+		$foundProfessionals = $this -> professionalRepo -> searchProfessionals($pCriteria);
+		$tags = $this -> generator -> generateTags($pCriteria);
+
+		return View::make('search-results') -> with('professionals', $foundProfessionals)
+			-> with('tags', $tags);
 	}
 
 }

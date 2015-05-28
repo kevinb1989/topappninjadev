@@ -16,6 +16,7 @@ class RepositoryServiceProvider extends ServiceProvider{
 		$this -> app -> bind('TopAppNinja\Repositories\CreativeFieldRepositoryInterface', 'TopAppNinja\Repositories\CreativeFieldRepository');
 		$this -> app -> bind('TopAppNinja\Repositories\PlatformRepositoryInterface', 'TopAppNinja\Repositories\PlatformRepository');
 		$this -> app -> bind('TopAppNinja\Repositories\ProfessionalRepositoryInterface', 'TopAppNinja\Repositories\ProfessionalRepository');
+		$this -> app -> bind('TopAppNinja\Repositories\TagsGeneratorInterface', 'TopAppNinja\Repositories\TagsGenerator');
 
 	}
 }

@@ -6,63 +6,23 @@
 
 @section('content')
   <div class="searcharea">
- <div class="wrapper">
- <div class="filter">
-  <form>
-   <input type="button" value="MOST RECENT" class="recent">
-   <input type="button" value="MOST VIEWED" class="viewed">
-   <input type="button" value="SPONSORED" class="sponsored">
-   <div class="clear"></div>
-  </form>
-  <div class="searchbox">
-   <p class="searchby">Search By</p>
-   <div class="textboxes">
-      {{Form::open(array('url' => 'search-professionals', 'method' => 'GET'))}}
-        {{Form::text('name',
-          null, 
-          array('placeholder' => 'Company Name, App name etc', 'class' => 'textstyle'))}}
-        {{Form::button(null, 
-          array('class' => 'searchbutton', 'name' => 'search_button', 'id' => 'search_button'))}}
-        <!-- The first value is zero and it will be ignored in the search query if it is selected -->
-        {{Form::select('specializations[]', 
-          $specializations, 
-          null, 
-          array('id' => 'specializations', 'multiple' => 'multiple'))}}
-        
-        {{Form::select('countries',
-          $countries,
-          null, 
-          array('id' => 'countries'))}}
-        
-        {{Form::select('cities[]', array(), null, array('id' => 'cities', 'multiple' => 'multiple'))}}
-        <div class="clear"></div><br/><br/>
-        {{-- <input type="range" min="0" max="200000" value="0" step="5" onchange="showValue(this.value)" />
-        <span id="range">$0</span> --}}
-        <span id="price_range_bottom">$10000</span>
-        <div id="price-range" class="price-range-cls"></div>
-        <span id="price_range_top">$50000</span>
-        {{Form::hidden('frm_price_range_bottom', 10000, array('id' => 'frm_price_range_bottom'))}}
-        {{Form::hidden('frm_price_range_top', 50000, array('id' => 'frm_price_range_top'))}}
-
-        {{Form::select('creative_fields[]', 
-          $creativeFields,
-          null,
-          array('multiple' => 'multiple', 'id' => 'creative_fields'))}}
-
-        {{Form::select('platforms[]', 
-        array_merge(array('0' => '--Platforms--'),$platforms),
-        null,
-        array('id' => 'platforms', 'multiple' => 'multiple'))}}
-
-        {{Form::submit('Search', array('class' => 'appprofesional'))}}
-        {{Form::Reset('Reset', array('class' => 'appprofesional'))}}
-        <div class="clear"></div><br/><br/><br/>
-      {{Form::close()}}
+   <div class="wrapper">
+     <div class="filter">
+        <form>
+           <input type="button" value="MOST RECENT" class="recent">
+           <input type="button" value="MOST VIEWED" class="viewed">
+           <input type="button" value="SPONSORED" class="sponsored">
+           <div class="clear"></div>
+        </form>
+        <div class="searchbox">
+          <div class="textboxes">
+            {{Form::open()}}
+              {{Form::input('text','tags', implode(',', $tags), array('id' => 'tags'))}}
+            {{Form::close()}}
+          </div>
+        </div>
+     </div>
    </div>
-   <button class="random"></button>
-  </div>
- </div>
- </div>
 </div>
 
   <div class="content">
@@ -125,13 +85,11 @@
           <div class="submain">
         </div>
       @endforeach
-      {{ $professionals -> links() }}
 
   </div>
 </div>
 
 <div class="pagenav">
-
 </div>
 
 <div class="recentportfolio">
@@ -227,63 +185,9 @@
   <script type="text/javascript">
     $(document).ready(function(){
 
-      $("#specializations").multiselect({
-        "noneSelectedText": "specializations",
-        "minWidth": 150,
-      });
-      $("#countries").multiselect({
-        "noneSelectedText": "countries",
-        "multiple": false,
-        "minWidth": 150,
-        "header": "countries",
-        "click": function(event, ui){
-            $.ajax({
-              type : "GET",
-              url : "cities",
-              data : "country_id=" + ui.value,
-              success: function(response){
-
-                $("#cities").empty();
-                $.each($.parseJSON(response), function(index, obj){
-                  $("#cities").append("<option value='" + obj.ID + "'>" + obj.CityName + "</option>");
-                });
-                $("#cities").multiselect("refresh");
-              },
-              error : function(response) {
-                alert("Error function" + response.responseText);
-              }
-            });    
-        }
-      });
-      $("#cities").multiselect({
-        "noneSelectedText": "cities",
-        "minWidth": 150
-      });
-      $("#creative_fields").multiselect({
-        "noneSelectedText": "creative fields"
-      });
-      $("#platforms").multiselect({
-        "noneSelectedText": "platforms"
-      });
-
-      //implement a slider for price range selection
-      $("#price-range").slider({
-        range: true,
-        min: 0,
-        max: 200000,
-        width: 200,
-        step: 10000,
-        values: [10000, 50000],
-        slide: function(event, ui){
-          $("#price_range_bottom").html("$" + ui.values[0]);
-          $("#price_range_top").html("$" + ui.values[1]);
-          $("#frm_price_range_bottom").val(ui.values[0]);
-          $("#frm_price_range_top").val(ui.values[1]);
-        }
-      });
-
-
+      $("#tags").tagsInput();
 
     });
-  </script>
+  </script> 
+  
 @stop

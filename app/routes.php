@@ -19,4 +19,6 @@ Route::get('/', function()
 
 Route::get('home', 'HomeController@showHomePage');
 
-Route::post('search-professionals', 'SearchController@search');
+Route::get('cities', 'CitiesController@getAllCitiesByCountryID');
+
+Route::get('search-professionals', 'SearchController@search');

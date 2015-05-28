@@ -32,22 +32,53 @@ class ProfessionalRepository implements ProfessionalRepositoryInterface{
 		return $this -> professional -> find($pProfessionalID);
 	}
 
-	public function searchProfessionals($pCritera){
+	public function searchProfessionals($pCriteria){
 
-		return $this -> professional -> join('pros_specs', 'professionals.ID', '=', 'pros_specs.professionalID')
-			-> join('specializations', 'specializations.ID', '=', 'pros_specs.specializationID')
-			-> join('pros_clientfocuses', 'professionals.ID', '=', 'pros_clientfocuses.professionalID')
-			-> join('clientfocuses', 'clientfocuses.ID', '=', 'pros_clientfocuses.clientfocusID')
-			-> join('pros_creativefields', 'professionals.ID', '=', 'pros_creativefields.ProfessionalID')
-			-> join('creativefields', 'pros_creativefields.CreativeFieldID', '=', 'creativefields.ID')
-			-> join('pros_platforms', 'professionals.ID', '=', 'pros_platforms.ProfessionalID')
-			-> join('platforms', 'platforms.ID', '=', 'pros_platforms.PlatformID')
-			-> join('cities', 'professionals.CityID', '=', 'Cities.ID')
-			-> whereIn('specializations.ID', $pCritera['pSpecializations'])
-			-> whereIn('clientfocuses.ID', $pCritera['pClientfocuses'])
-			-> whereIn('creativefields.ID', $pCritera['pCreativeFields'])
-			-> whereIn('Platforms.ID', $pCritera['pPlatforms'])
-			-> whereIn('Cities.ID', $pCritera['pCities']);
+		// return $this -> professional -> where('CompanyName', 'LIKE', '%' . $pCriteria['pCompanyName'] . '%')
+		// 	-> get();
+
+	// 	 return $this -> professional -> join('pros_specs', 'professionals.ID', '=', 'pros_specs.professionalID')
+	// 		 -> join('specializations', 'specializations.ID', '=', 'pros_specs.specializationID')
+	// 		-> join('pros_creativefields', 'professionals.ID', '=', 'pros_creativefields.ProfessionalID')
+	// 		-> join('creativefields', 'pros_creativefields.CreativeFieldID', '=', 'creativefields.ID')
+	// 		-> join('pros_platforms', 'professionals.ID', '=', 'pros_platforms.ProfessionalID')
+	// 		-> join('platforms', 'platforms.ID', '=', 'pros_platforms.PlatformID')
+	// 		-> join('cities', 'professionals.CityID', '=', 'Cities.ID')
+	// 		-> where('CompanyName', 'LIKE', '%' . $pCriteria['pCompanyName'] . '%')
+	// 		-> whereIn('specializations.ID', $pCriteria['pSpecializations'])
+	// 		-> whereIn('creativefields.ID', $pCriteria['pCreativeFields'])
+	// 		-> whereIn('platforms.ID', $pCriteria['pPlatforms'])
+	// 		-> whereIn('cities.ID', $pCriteria['pCities']) 
+	// 		-> groupBy('professionals.ID')
+	// 		-> distinct() -> get();
+	// }
+
+		$searchQuery = $this -> professional -> queryJoiningTables();
+
+		if(!is_null($pCriteria['pCompanyName'])){
+			$searchQuery = $searchQuery -> queryCompanyName($pCriteria['pCompanyName']);
+		}
+
+		if(!is_null($pCriteria['pSpecializations'])){
+			$searchQuery = $searchQuery -> querySpecializations($pCriteria['pSpecializations']);
+		}
+
+		if(!is_null($pCriteria['pCreativeFields'])){
+			$searchQuery = $searchQuery -> queryCreativeFields($pCriteria['pCreativeFields']);
+		}
+
+		if(!is_null($pCriteria['pPlatforms'])){
+			$searchQuery = $searchQuery -> queryPlatforms($pCriteria['pPlatforms']);
+		}
+
+		if(!is_null($pCriteria['pCities'])){
+			$searchQuery = $searchQuery -> queryCities($pCriteria['pCities']);
+		}
+
+
+
+		return $searchQuery -> groupBy('professionals.ID') 
+			-> distinct() -> get(array('Professionals.*'));
 	}
 
 	public function register($pInfoArr){

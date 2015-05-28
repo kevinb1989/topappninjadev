@@ -9,6 +9,6 @@ class State extends Model{
 	protected $primaryKey = 'ID';
 
 	public function cities(){
-		return $this -> hasMany('City');
+		return $this -> hasMany('TopAppNinja\Entities\City');
 	}
 }

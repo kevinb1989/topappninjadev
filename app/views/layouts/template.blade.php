@@ -12,6 +12,7 @@
 {{ HTML::style('css/jquery-ui.structure.css') }}
 {{ HTML::style('css/jquery-ui.theme.css') }}
 {{ HTML::style('css/jquery.multiselect.css') }}
+{{ HTML::style('css/jquery.tagsinput.css') }}
 
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 <script type="text/javascript">
@@ -136,6 +137,7 @@ function showValue(newValue)
 {{HTML::script('js/jquery-ui.js')}}
 {{HTML::script('js/boostrap.js')}}
 {{HTML::script('js/jquery.multiselect.js')}}
+{{HTML::script('js/jquery.tagsinput.js')}}
 
 @section('customscript')
             <script type="text/javascript"></script>

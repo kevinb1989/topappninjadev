@@ -11,10 +11,10 @@ class Country extends Model{
 	protected $primaryKey = 'ID';
 
 	public function states(){
-		return $this -> hasMany('State');
+		return $this -> hasMany('TopAppNinja\Entities\State', 'CountryID');
 	}
 
 	public function cities(){
-		return $this -> hasManyThrough('City', 'State', 'CountryID', 'StateID');
+		return $this -> hasManyThrough('TopAppNinja\Entities\City', 'TopAppNinja\Entities\State', 'CountryID', 'StateID');
 	}
 }
