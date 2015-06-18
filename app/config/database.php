@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '127.0.0.1',
+			'host'      => '128.199.124.112',
 			'database'  => 'topappninja',
-			'username'  => 'root',
-			'password'  => '',
+			'username'  => 'forge',
+			'password'  => 'yNzgfZCqFyUhOlHpaHHR',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
