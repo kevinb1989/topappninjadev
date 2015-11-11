@@ -121,7 +121,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'Laravel\Cashier\CashierServiceProvider',
+		//'Laravel\Cashier\CashierServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
 		'TopAppNinja\Repositories\RepositoryServiceProvider'
 
